@@ -1,11 +1,4 @@
-#include "BasicComponents.hh"
-#include "MatHandler.hh"
-#include "MatBasics.hh"
-#include "ColorSpaces.hh"
 #include "FilterHandler.hh"
-#include "ThresholdHandler.hh"
-#include "CropHandler.hh"
-#include "MorphologyHandler.hh"
 
 int size = 1;
 int size_limit = 20;
