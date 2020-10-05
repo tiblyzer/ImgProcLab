@@ -73,10 +73,6 @@ void FilterHandler::demoHSVHistoEqualize()
 	*/
 }
 
-void FilterHandler::demoUnsharpFilter()
-{
-
-}
 
 void FilterHandler::boxOnTrackBar()
 {
@@ -101,12 +97,3 @@ void FilterHandler::medianOnTrackBar()
 		cv::imshow("MedianFilter", imageIO.output);
 	}
 }
-
-/*void FilterHandler::unsharpOnTrackBar()
-{
-	/*Mat blurred; double sigma = 1, threshold = 5, amount = 1;
-	GaussianBlur(img, blurred, Size(), sigma, sigma);
-	Mat lowContrastMask = abs(img - blurred) < threshold;
-	Mat sharpened = img * (1 + amount) + blurred * (-amount);
-	img.copyTo(sharpened, lowContrastMask);*/
-//}
