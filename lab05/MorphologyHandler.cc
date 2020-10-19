@@ -35,7 +35,7 @@ void MorphologyHandler::demoOpening()
 	cv::erode(Img, eroded, kernel);
 	cv::dilate(eroded, opened, kernel);
 
-	cv::imshow("opened", eroded);
+	cv::imshow("opened", opened);
 	cv::waitKey(0);
 }
 
