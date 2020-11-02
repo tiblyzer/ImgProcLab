@@ -132,7 +132,7 @@ cv::cvtColor(I, hsv, cv::COLOR_RGB2HSV);
 cv::cvtColor(I, hsv, cv::COLOR_HSV2RGB);
 ```	
 
-##Képjavító módszerek
+## Képjavító módszerek
 
 ### Szűrők,eljárások
 
