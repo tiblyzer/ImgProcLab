@@ -108,17 +108,22 @@ void demoMorpSkeleton()
     cv::Mat open, eroded, temp;
     cv::Mat thresholded;
     cv::Mat img = cv::imread("shape.png", 0);
-    cv::Mat skel(img.size(), CV_8UC1);
+    cv::Mat skel(img.size(), CV_8UC1, cv::Scalar(0));
 
     cv::threshold(img, thresholded, 130, 255, cv::THRESH_BINARY);
             while (1) {
-                cv::morphologyEx(img, open,cv::MORPH_OPEN, kernel);
+                cv::morphologyEx(thresholded, open,cv::MORPH_OPEN, kernel);
                    
-                temp = img - open;
-                cv::erode(img, eroded, kernel);
+                cv::subtract(thresholded,open,temp);
+                cv::erode(thresholded, eroded, kernel);
                 cv::bitwise_or(skel, temp,skel);
-                img = eroded.clone();
-                if (cv::countNonZero(img) == 0) {
+                eroded.copyTo(thresholded);
+                //cv::imshow("thresholded", thresholded);
+                //cv::imshow("eroded", eroded);
+                //cv::imshow("temp", temp);
+                cv::imshow("Skeleton", skel);
+                cv::waitKey(0);
+                if (cv::countNonZero(thresholded) == 0) {
                     break;
                 }
             }
@@ -128,9 +133,9 @@ void demoMorpSkeleton()
 }
 
 int main() {
-	//demoDrawContours();
-    //demoExtractMomentsandProperties();
+	demoDrawContours();
+    demoExtractMomentsandProperties();
     demoBounding();
-    //demoMorpSkeleton();
+    demoMorpSkeleton();
 	return 0;
 }
