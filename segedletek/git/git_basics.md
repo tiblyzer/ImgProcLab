@@ -4,7 +4,7 @@
 
 1. Kattintsunk a new gombra:
 
-![alt text](https://github.com/tiblyzer/ImgProcLab/blob/master/segedletek/git/new_button.png "Logo Title Text 1")
+![alt text](https://github.com/tiblyzer/ImgProcLab/blob/master/segedletek/git/new_button.PNG "Logo Title Text 1")
 
 2. Töltsük ki a mezőket az alábbi módon:
 
