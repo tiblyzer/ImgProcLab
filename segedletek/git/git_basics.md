@@ -4,11 +4,11 @@
 
 1. Kattintsunk a new gombra:
 
-![alt text](new_button.png "Logo Title Text 1")
+![alt text](https://github.com/tiblyzer/ImgProcLab/blob/master/segedletek/git/new_button.png "Logo Title Text 1")
 
 2. Töltsük ki a mezőket az alábbi módon:
 
-![alt text](repo_properties.png "Logo Title Text 2")
+![alt text](https://github.com/tiblyzer/ImgProcLab/blob/master/segedletek/git/repo_properties.png "Logo Title Text 2")
 
 * adjuk meg az új repository nevét
 * hagyjuk meg public-ként az új repository-t elérhetőként
