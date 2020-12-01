@@ -5,22 +5,27 @@
 #include <iostream>
 #include <string>
 
-void loadImg(cv::Mat& img,std::string& path) 
+void loadImg(cv::Mat& img,std::string& path,int mode) 
 {
-	img = cv::imread(path, 1);
+	img = cv::imread(path, mode);
 }
 
 void correctImg(cv::Mat& img, cv::Mat& result)
 {
 	cv::Mat blurred, blurred2, sharped,contrasted, splitted[3];
 
-	cv::split(img, splitted);
+	if (img.type() == CV_8UC3) {
+		cv::split(img, splitted);
 
-	for (int i = 0; i < 3; ++i)
-		cv::equalizeHist(splitted[i], splitted[i]);
+		for (int i = 0; i < 3; ++i)
+			cv::equalizeHist(splitted[i], splitted[i]);
 
-	cv::merge(splitted, 3, result);
+		cv::merge(splitted, 3, result);
+	}
 
+	if (img.type() == CV_8UC1) {
+		cv::equalizeHist(img, result);
+	}
 	cv::GaussianBlur(result, blurred, cv::Size(5, 5), 3);
 	cv::GaussianBlur(blurred, blurred2, cv::Size(7, 7), 1);
 
@@ -95,7 +100,7 @@ void task_1()
 	std::cout << "Image Path: ";
 	std::cin >> path;
 
-	loadImg(img,path);
+	loadImg(img,path,1);
 	correctImg(img, filtered);
 
 	imshow("filtered", filtered);
@@ -132,14 +137,77 @@ void task_1()
 	cv::imwrite("out.jpg", modified, formatParameters_jpg);
 }
 
+void colorModifyText(cv::Mat& img, cv::Mat& result, int color)
+{
+	result.create(img.size(), CV_8UC3);
+	
+	for (int i = 0; i < img.rows; ++i) {
+		for (int j = 0; j < img.cols; ++j) {
+			cv::Vec3b pixelgroup;
+			
+			
+			if (img.at<uchar>(i, j) < 20) {
+				pixelgroup[0] = color;
+				pixelgroup[1] = 0;
+				pixelgroup[2] = 255;
+			}
+			else {
+				pixelgroup[0] =180;
+				pixelgroup[1] =255;
+				pixelgroup[2] =255;
+			}
+			result.at<cv::Vec3b>(i, j) = pixelgroup;
+		}
+	}
+}
+
 void task_2()
+{
+	cv::Mat img, filtered;
+	std::string path;
+
+	std::cout << "Image Path: ";
+	std::cin >> path;
+
+	loadImg(img, path,0);
+	correctImg(img, filtered);
+
+	imshow("filtered", filtered);
+	cv::waitKey();
+
+	cv::Mat thresholded;
+	int blockSize = 5;
+
+	cv::adaptiveThreshold(img, thresholded, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, blockSize, 2);
+
+	cv::Mat modified;
+	int color;
+
+	std::cout << "Color: ";
+	std::cin >> color;
+
+	colorModifyText(thresholded, modified, color);
+
+
+	imshow("modified", modified);
+	cv::waitKey();
+
+	std::vector<int> formatParameters_jpg;
+
+	formatParameters_jpg.push_back(cv::IMWRITE_JPEG_QUALITY);
+	formatParameters_jpg.push_back(92);
+
+	cv::imwrite("out.jpg", modified, formatParameters_jpg);
+}
+
+void task_3()
 {
 
 }
 
 int main()
 {
-	task_1();
+	//task_1();
 	task_2();
 	return 0;
 }
